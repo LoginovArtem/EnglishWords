@@ -10,6 +10,7 @@ import org.junit.runner.RunWith
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
+import ru.timon.englishwords.main.MainPage
 
 @RunWith(AndroidJUnit4::class)
 class ScenarioTest {
