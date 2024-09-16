@@ -1,16 +1,13 @@
 package ru.timon.englishwords
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 
 import org.junit.Test
 import org.junit.runner.RunWith
 
-import org.junit.Assert.*
-import org.junit.Before
 import org.junit.Rule
-import ru.timon.englishwords.main.MainPage
+import ru.timon.englishwords.main.practicePage
 
 @RunWith(AndroidJUnit4::class)
 class ScenarioTest {
@@ -19,64 +16,64 @@ class ScenarioTest {
 
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
-    private lateinit var mainPage: MainPage
+    private lateinit var practicePage: practicePage
 
     @Test
     fun testCase_1() {
-        mainPage = MainPage(word = "sky", translation = "небо")
-        mainPage.assertInitialState()
+        practicePage = practicePage(word = "sky", translation = "небо")
+        practicePage.assertInitialState()
 
-        mainPage.type("небо")
-        mainPage.check()
-        mainPage.assertCorrectState()
+        practicePage.type("небо")
+        practicePage.check()
+        practicePage.assertCorrectState()
 
-        mainPage.next()
-        mainPage = MainPage(word = "tree", translation = "дерево")
-        mainPage.assertInitialState()
+        practicePage.next()
+        practicePage = practicePage(word = "tree", translation = "дерево")
+        practicePage.assertInitialState()
     }
 
     @Test
     fun testCase_2() {
-        mainPage = MainPage(word = "sky", translation = "небо")
-        mainPage.assertInitialState()
+        practicePage = practicePage(word = "sky", translation = "небо")
+        practicePage.assertInitialState()
 
-        mainPage.type("небо")
-        mainPage.check()
-        mainPage.assertCorrectState()
+        practicePage.type("небо")
+        practicePage.check()
+        practicePage.assertCorrectState()
 
-        mainPage.next()
-        mainPage = MainPage(word = "tree", translation = "дерево")
-        mainPage.assertInitialState()
+        practicePage.next()
+        practicePage = practicePage(word = "tree", translation = "дерево")
+        practicePage.assertInitialState()
 
-        mainPage.type("три")
-        mainPage.check()
-        mainPage.assertIncorrectState()
+        practicePage.type("три")
+        practicePage.check()
+        practicePage.assertIncorrectState()
 
-        mainPage.type("дерево")
-        mainPage.check()
-        mainPage.assertCorrectState()
+        practicePage.type("дерево")
+        practicePage.check()
+        practicePage.assertCorrectState()
 
-        mainPage.next()
-        mainPage = MainPage(word = "blue", translation = "синий")
-        mainPage.assertInitialState()
+        practicePage.next()
+        practicePage = practicePage(word = "blue", translation = "синий")
+        practicePage.assertInitialState()
 
-        mainPage.type("дерево")
-        mainPage.check()
-        mainPage.assertIncorrectState()
+        practicePage.type("дерево")
+        practicePage.check()
+        practicePage.assertIncorrectState()
 
-        mainPage.next()
-        mainPage = MainPage(word = "car", translation = "машина")
-        mainPage.assertInitialState()
+        practicePage.next()
+        practicePage = practicePage(word = "car", translation = "машина")
+        practicePage.assertInitialState()
 
-        mainPage.type("дерево")
-        mainPage.check()
-        mainPage.assertIncorrectState()
+        practicePage.type("дерево")
+        practicePage.check()
+        practicePage.assertIncorrectState()
 
-        mainPage.show()
-        mainPage.assertFailState()
+        practicePage.show()
+        practicePage.assertFailState()
 
-        mainPage.next()
-        mainPage = MainPage(word = "run", translation = "бежать")
-        mainPage.assertInitialState()
+        practicePage.next()
+        practicePage = practicePage(word = "run", translation = "бежать")
+        practicePage.assertInitialState()
     }
 }
