@@ -8,7 +8,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withParent
 import org.hamcrest.Matcher
 import ru.timon.englishwords.R
 
-class MainPage(word: String, translation: String) {
+class practicePage(word: String, translation: String) {
 
     private val containerIdMatcher: Matcher<View> = withParent(withId(R.id.rootLayout))
     private val containerClassTypeMatcher: Matcher<View> =
@@ -30,10 +30,7 @@ class MainPage(word: String, translation: String) {
 
     private val inputUi = InputUi()
 
-    private val checkUi = ButtonUi(
-        id = R.id.checkButton,
-        textResId = R.string.check,
-        colorHex = "E7D1FF",
+    private val checkUi = CheckUi(
         containerIdMatcher,
         containerClassTypeMatcher
     )
@@ -58,7 +55,7 @@ class MainPage(word: String, translation: String) {
         wordUi.assertTextVisible()
         translationUi.assertTextNotVisible()
         inputUi.assertInputVisibleEnabled()
-        checkUi.isVisible()
+        checkUi.isVisibleDisabled()
         showUi.notVisible()
         nextUi.notVisible()
     }
@@ -92,7 +89,7 @@ class MainPage(word: String, translation: String) {
         wordUi.assertTextVisible()
         translationUi.assertTextNotVisible()
         inputUi.assertInputVisibleError()
-        checkUi.isVisible()
+        checkUi.isVisibleEnabled()
         showUi.isVisible()
         nextUi.isVisible()
     }
