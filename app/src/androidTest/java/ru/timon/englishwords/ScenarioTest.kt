@@ -7,7 +7,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import org.junit.Rule
-import ru.timon.englishwords.main.practicePage
+
+import ru.timon.englishwords.main.PracticePage
+
 
 @RunWith(AndroidJUnit4::class)
 class ScenarioTest {
@@ -16,56 +18,58 @@ class ScenarioTest {
 
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
-    private lateinit var practicePage: practicePage
+
+    private lateinit var practicePage: PracticePage
 
     @Test
     fun testCase_1() {
-        practicePage = practicePage(word = "sky", translation = "небо")
+        practicePage = PracticePage(word = "sky", translation = "небо")
         practicePage.assertInitialState()
 
         practicePage.type("небо")
+        practicePage.assertCheckableState()
+
         practicePage.check()
         practicePage.assertCorrectState()
 
         practicePage.next()
-        practicePage = practicePage(word = "tree", translation = "дерево")
+        practicePage = PracticePage(word = "tree", translation = "дерево")
         practicePage.assertInitialState()
     }
 
     @Test
     fun testCase_2() {
-        practicePage = practicePage(word = "sky", translation = "небо")
+        practicePage = PracticePage(word = "sky", translation = "небо")
+        practicePage.assertInitialState()
+
+        practicePage.type("н")
+        practicePage.assertCheckableState()
+
+        practicePage.deleteLetter()
         practicePage.assertInitialState()
 
         practicePage.type("небо")
+        practicePage.assertCheckableState()
+
         practicePage.check()
         practicePage.assertCorrectState()
 
         practicePage.next()
-        practicePage = practicePage(word = "tree", translation = "дерево")
+        practicePage = PracticePage(word = "tree", translation = "дерево")
         practicePage.assertInitialState()
 
         practicePage.type("три")
+        practicePage.assertCheckableState()
+
         practicePage.check()
         practicePage.assertIncorrectState()
 
-        practicePage.type("дерево")
-        practicePage.check()
-        practicePage.assertCorrectState()
-
-        practicePage.next()
-        practicePage = practicePage(word = "blue", translation = "синий")
+        practicePage.tryAgain()
         practicePage.assertInitialState()
 
-        practicePage.type("дерево")
-        practicePage.check()
-        practicePage.assertIncorrectState()
+        practicePage.type("чтоэто")
+        practicePage.assertCheckableState()
 
-        practicePage.next()
-        practicePage = practicePage(word = "car", translation = "машина")
-        practicePage.assertInitialState()
-
-        practicePage.type("дерево")
         practicePage.check()
         practicePage.assertIncorrectState()
 
@@ -73,7 +77,7 @@ class ScenarioTest {
         practicePage.assertFailState()
 
         practicePage.next()
-        practicePage = practicePage(word = "run", translation = "бежать")
+        practicePage = PracticePage(word = "run", translation = "бежать")
         practicePage.assertInitialState()
     }
 }

@@ -3,4 +3,5 @@
     <string name="check">check</string>
     <string name="show">show translation</string>
     <string name="next">next word</string>
+    <string name="tryAgain">try again</string>
 </resources>

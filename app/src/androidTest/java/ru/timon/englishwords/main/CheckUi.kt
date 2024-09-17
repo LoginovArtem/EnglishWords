@@ -1,8 +1,10 @@
 package ru.timon.englishwords.main
 
 import android.view.View
+import android.widget.Button
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isEnabled
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -23,11 +25,12 @@ class CheckUi(containerIdMatcher: Matcher<View>, containerClassTypeMatcher: Matc
             )
         )
     ) {
-        fun isVisibleEnabled() {
-            interaction.check(matches(isDisplayed())).check(matches(isEnabled()))
-        }
+    fun isVisibleDisabled() {
+        interaction.check(matches(isDisplayed())).check(matches(not(isEnabled())))
+    }
 
-        fun isVisibleDisabled() {
-            interaction.check(matches(isDisplayed())).check(matches(not(isEnabled())))
-        }
+    fun isVisibleEnabled() {
+        interaction.check(matches(isDisplayed())).check(matches(isEnabled()))
+    }
+
 }

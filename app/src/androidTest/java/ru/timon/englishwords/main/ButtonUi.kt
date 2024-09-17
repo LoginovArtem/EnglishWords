@@ -32,7 +32,7 @@ class ButtonUi(
     )
 )
 
-abstract class AbstractButtonUi (protected val interaction: ViewInteraction) {
+abstract class AbstractButtonUi(protected val interaction: ViewInteraction) {
 
     fun click() {
         interaction.perform(androidx.test.espresso.action.ViewActions.click())
@@ -45,6 +45,5 @@ abstract class AbstractButtonUi (protected val interaction: ViewInteraction) {
     fun notVisible() {
         interaction.check(matches(not(isDisplayed())))
     }
-
 
 }
