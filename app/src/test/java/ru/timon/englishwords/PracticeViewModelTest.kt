@@ -11,7 +11,7 @@ class PracticeViewModelTest {
 
     @Before
     fun setup() {
-        viewModel = PracticeViewModel()
+        viewModel = PracticeViewModel(repository = FakeRepository())
     }
 
     @Test
@@ -90,3 +90,20 @@ class PracticeViewModelTest {
         assertEquals(expected, actual)
     }
 }
+
+class FakeRepository : PracticeRepository {
+    private val enList = listOf("sky", "tree", "run")
+    private val ruList = listOf("небо", "дерево", "бежать")
+    private var index = 0
+
+    override fun word(): String = enList[index]
+
+    override fun translation(): String = ruList[index]
+
+    override fun next() {
+        index++
+        if (index == enList.size)
+            index = 0
+    }
+}
+
