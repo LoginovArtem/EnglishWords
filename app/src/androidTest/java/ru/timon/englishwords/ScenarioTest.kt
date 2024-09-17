@@ -7,7 +7,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import org.junit.Rule
+
 import ru.timon.englishwords.main.PracticePage
+
 
 @RunWith(AndroidJUnit4::class)
 class ScenarioTest {
@@ -15,6 +17,7 @@ class ScenarioTest {
     @get:Rule
 
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
+
 
     private lateinit var practicePage: PracticePage
 

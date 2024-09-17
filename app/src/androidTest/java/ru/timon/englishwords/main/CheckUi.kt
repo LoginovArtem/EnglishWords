@@ -32,4 +32,5 @@ class CheckUi(containerIdMatcher: Matcher<View>, containerClassTypeMatcher: Matc
     fun isVisibleEnabled() {
         interaction.check(matches(isDisplayed())).check(matches(isEnabled()))
     }
+
 }
