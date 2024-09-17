@@ -25,7 +25,7 @@ class PracticeViewModelTest {
         expected = PracticeUiState.Checkable(word = "sky", translation = "небо")
         assertEquals(expected, actual)
 
-        actual = viewModel.check()
+        actual = viewModel.check(text = "небо")
         expected = PracticeUiState.Correct(word = "sky", translation = "небо")
         assertEquals(expected, actual)
 
@@ -53,7 +53,7 @@ class PracticeViewModelTest {
         expected = PracticeUiState.Checkable(word = "sky", translation = "небо")
         assertEquals(expected, actual)
 
-        actual = viewModel.check()
+        actual = viewModel.check(text = "небо")
         expected = PracticeUiState.Correct(word = "sky", translation = "небо")
         assertEquals(expected, actual)
 
@@ -65,7 +65,7 @@ class PracticeViewModelTest {
         expected = PracticeUiState.Checkable(word = "tree", translation = "дерево")
         assertEquals(expected, actual)
 
-        actual = viewModel.check()
+        actual = viewModel.check(text = "три")
         expected = PracticeUiState.Incorrect(word = "tree", translation = "дерево")
         assertEquals(expected, actual)
 
@@ -77,7 +77,7 @@ class PracticeViewModelTest {
         expected = PracticeUiState.Checkable(word = "tree", translation = "дерево")
         assertEquals(expected, actual)
 
-        actual = viewModel.check()
+        actual = viewModel.check(text = "три")
         expected = PracticeUiState.Incorrect(word = "tree", translation = "дерево")
         assertEquals(expected, actual)
 
