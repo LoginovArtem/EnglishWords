@@ -20,8 +20,7 @@ class ButtonUi(
     colorHex: String,
     containerIdMatcher: Matcher<View>,
     containerClassTypeMatcher: Matcher<View>
-) {
-    private val interaction: ViewInteraction = onView(
+) : AbstractButtonUi(onView(
         allOf(
             withId(id),
             withText(textResId),
@@ -31,6 +30,9 @@ class ButtonUi(
             isAssignableFrom(TextView::class.java)
         )
     )
+)
+
+abstract class AbstractButtonUi(protected val interaction: ViewInteraction) {
 
     fun click() {
         interaction.perform(androidx.test.espresso.action.ViewActions.click())
@@ -43,6 +45,5 @@ class ButtonUi(
     fun notVisible() {
         interaction.check(matches(not(isDisplayed())))
     }
-
 
 }

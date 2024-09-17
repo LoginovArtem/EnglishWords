@@ -8,7 +8,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withParent
 import org.hamcrest.Matcher
 import ru.timon.englishwords.R
 
-class MainPage(word: String, translation: String) {
+class PracticePage(word: String, translation: String) {
 
     private val containerIdMatcher: Matcher<View> = withParent(withId(R.id.rootLayout))
     private val containerClassTypeMatcher: Matcher<View> =
@@ -30,10 +30,7 @@ class MainPage(word: String, translation: String) {
 
     private val inputUi = InputUi()
 
-    private val checkUi = ButtonUi(
-        id = R.id.checkButton,
-        textResId = R.string.check,
-        colorHex = "E7D1FF",
+    private val checkUi = CheckUi(
         containerIdMatcher,
         containerClassTypeMatcher
     )
@@ -54,17 +51,30 @@ class MainPage(word: String, translation: String) {
         containerClassTypeMatcher
     )
 
+    private val tryAgainUi = ButtonUi(
+        id = R.id.tryAgainButton,
+        textResId = R.string.tryAgain,
+        colorHex = "E7D1FF",
+        containerIdMatcher,
+        containerClassTypeMatcher
+    )
+
     fun assertInitialState() {
         wordUi.assertTextVisible()
         translationUi.assertTextNotVisible()
         inputUi.assertInputVisibleEnabled()
-        checkUi.isVisible()
+        checkUi.isVisibleDisabled()
         showUi.notVisible()
         nextUi.notVisible()
+        tryAgainUi.notVisible()
     }
 
     fun type(text: String) {
         inputUi.addInput(text)
+    }
+
+    fun deleteLetter() {
+        inputUi.deleteLetter()
     }
 
     fun check() {
@@ -79,6 +89,10 @@ class MainPage(word: String, translation: String) {
         showUi.click()
     }
 
+    fun tryAgain() {
+        tryAgainUi.click()
+    }
+
     fun assertCorrectState() {
         wordUi.assertTextVisible()
         translationUi.assertTextNotVisible()
@@ -86,15 +100,17 @@ class MainPage(word: String, translation: String) {
         checkUi.notVisible()
         showUi.notVisible()
         nextUi.isVisible()
+        tryAgainUi.notVisible()
     }
 
     fun assertIncorrectState() {
         wordUi.assertTextVisible()
         translationUi.assertTextNotVisible()
-        inputUi.assertInputVisibleError()
-        checkUi.isVisible()
+        inputUi.assertInputVisibleDisabledError()
+        checkUi.notVisible()
         showUi.isVisible()
-        nextUi.isVisible()
+        nextUi.notVisible()
+        tryAgainUi.isVisible()
     }
 
     fun assertFailState() {
@@ -104,7 +120,16 @@ class MainPage(word: String, translation: String) {
         checkUi.notVisible()
         showUi.notVisible()
         nextUi.isVisible()
+        tryAgainUi.notVisible()
     }
 
-
+    fun assertCheckableState() {
+        wordUi.assertTextVisible()
+        translationUi.assertTextNotVisible()
+        inputUi.assertInputVisibleEnabled()
+        checkUi.isVisibleEnabled()
+        showUi.notVisible()
+        nextUi.notVisible()
+        tryAgainUi.notVisible()
+    }
 }
