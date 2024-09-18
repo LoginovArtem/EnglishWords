@@ -13,20 +13,7 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val viewModel : PracticeViewModel = PracticeViewModel(object : PracticeRepository {
-            override fun word(): String {
-                TODO("Not yet implemented")
-            }
-
-            override fun translation(): String {
-                TODO("Not yet implemented")
-            }
-
-            override fun next() {
-                TODO("Not yet implemented")
-            }
-
-        })
+        val viewModel = PracticeViewModel(PracticeRepository.Base())
 
         binding.checkButton.setOnClickListener {
             val uiState : PracticeUiState = viewModel.check(text = binding.inputEditText.text.toString())

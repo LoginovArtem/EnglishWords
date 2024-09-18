@@ -92,18 +92,17 @@ class PracticeViewModelTest {
 }
 
 class FakeRepository : PracticeRepository {
-    private val enList = listOf("sky", "tree", "run")
-    private val ruList = listOf("небо", "дерево", "бежать")
+    private val list = listOf("sky" to "небо", "tree" to "дерево", "run" to "бежать")
     private var index = 0
 
-    override fun word(): String = enList[index]
-
-    override fun translation(): String = ruList[index]
+    override fun word(): String = list[index].first
+    override fun translation(): String = list[index].second
 
     override fun next() {
-        index++
-        if (index == enList.size)
+        if (index == list.size ) {
             index = 0
+        }
+        index++
     }
 }
 

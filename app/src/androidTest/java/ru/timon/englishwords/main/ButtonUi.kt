@@ -17,17 +17,14 @@ import ru.timon.englishwords.ButtonColorMatcher
 class ButtonUi(
     id: Int,
     textResId: Int,
-    colorHex: String,
     containerIdMatcher: Matcher<View>,
     containerClassTypeMatcher: Matcher<View>
 ) : AbstractButtonUi(onView(
         allOf(
             withId(id),
             withText(textResId),
-            ButtonColorMatcher(colorHex),
             containerIdMatcher,
-            containerClassTypeMatcher,
-            isAssignableFrom(TextView::class.java)
+            containerClassTypeMatcher
         )
     )
 )

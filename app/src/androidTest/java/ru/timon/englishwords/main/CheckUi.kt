@@ -12,6 +12,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.not
 import org.hamcrest.Matcher
+import ru.timon.englishwords.ButtonColorMatcher
 import ru.timon.englishwords.R
 
 class CheckUi(containerIdMatcher: Matcher<View>, containerClassTypeMatcher: Matcher<View>) :
@@ -21,7 +22,7 @@ class CheckUi(containerIdMatcher: Matcher<View>, containerClassTypeMatcher: Matc
                 containerIdMatcher,
                 containerClassTypeMatcher,
                 withId(R.id.checkButton),
-                withText(R.string.check)
+                withText(R.string.check),
             )
         )
     ) {
