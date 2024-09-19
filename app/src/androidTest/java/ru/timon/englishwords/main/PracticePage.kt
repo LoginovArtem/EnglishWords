@@ -56,14 +56,8 @@ class PracticePage(word: String, translation: String) {
         containerClassTypeMatcher
     )
 
-    fun assertInitialState() {
-        wordUi.assertTextVisible()
-        translationUi.assertTextNotVisible()
-        inputUi.assertInputVisibleEnabled()
-        checkUi.isVisibleDisabled()
-        showUi.notVisible()
-        nextUi.notVisible()
-        tryAgainUi.notVisible()
+    fun clearText() {
+        inputUi.clearText()
     }
 
     fun type(text: String) {
@@ -84,6 +78,16 @@ class PracticePage(word: String, translation: String) {
 
     fun tryAgain() {
         tryAgainUi.click()
+    }
+
+    fun assertInitialState() {
+        wordUi.assertTextVisible()
+        translationUi.assertTextNotVisible()
+        inputUi.assertInputVisibleEnabled()
+        checkUi.isVisibleDisabled()
+        showUi.notVisible()
+        nextUi.notVisible()
+        tryAgainUi.notVisible()
     }
 
     fun assertCorrectState() {
