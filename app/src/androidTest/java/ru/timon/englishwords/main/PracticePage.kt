@@ -61,7 +61,9 @@ class PracticePage(word: String, translation: String) {
     }
 
     fun type(text: String) {
-        inputUi.addInput(text)
+        inputUi.addInput("text")
+        inputUi.clearText()
+        inputUi.replace(text)
     }
 
     fun check() {
