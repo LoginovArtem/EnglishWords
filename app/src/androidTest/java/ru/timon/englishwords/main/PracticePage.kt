@@ -38,7 +38,6 @@ class PracticePage(word: String, translation: String) {
     private val showUi = ButtonUi(
         id = R.id.showButton,
         textResId = R.string.show,
-        colorHex = "E7D1FF",
         containerIdMatcher,
         containerClassTypeMatcher
     )
@@ -46,7 +45,6 @@ class PracticePage(word: String, translation: String) {
     private val nextUi = ButtonUi(
         id = R.id.nextButton,
         textResId = R.string.next,
-        colorHex = "E7D1FF",
         containerIdMatcher,
         containerClassTypeMatcher
     )
@@ -54,7 +52,6 @@ class PracticePage(word: String, translation: String) {
     private val tryAgainUi = ButtonUi(
         id = R.id.tryAgainButton,
         textResId = R.string.tryAgain,
-        colorHex = "E7D1FF",
         containerIdMatcher,
         containerClassTypeMatcher
     )
@@ -70,11 +67,9 @@ class PracticePage(word: String, translation: String) {
     }
 
     fun type(text: String) {
-        inputUi.addInput(text)
-    }
-
-    fun deleteLetter() {
-        inputUi.deleteLetter()
+        inputUi.addInput("text")
+        inputUi.clearText()
+        inputUi.replace(text)
     }
 
     fun check() {
@@ -131,5 +126,9 @@ class PracticePage(word: String, translation: String) {
         showUi.notVisible()
         nextUi.notVisible()
         tryAgainUi.notVisible()
+    }
+
+    fun clearText() {
+        inputUi.clearText()
     }
 }
