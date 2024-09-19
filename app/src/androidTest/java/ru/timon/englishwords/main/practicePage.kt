@@ -67,11 +67,9 @@ class PracticePage(word: String, translation: String) {
     }
 
     fun type(text: String) {
-        inputUi.addInput(text)
-    }
-
-    fun deleteLetter() {
-        inputUi.deleteLetter()
+        inputUi.addInput("text")
+        inputUi.clearText()
+        inputUi.replace(text)
     }
 
     fun check() {
@@ -128,5 +126,9 @@ class PracticePage(word: String, translation: String) {
         showUi.notVisible()
         nextUi.notVisible()
         tryAgainUi.notVisible()
+    }
+
+    fun clearText() {
+        inputUi.clearText()
     }
 }

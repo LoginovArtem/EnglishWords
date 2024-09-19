@@ -45,7 +45,7 @@ class ScenarioTest {
         practicePage.type("н")
         practicePage.assertCheckableState()
 
-        practicePage.deleteLetter()
+        practicePage.clearText()
         practicePage.assertInitialState()
 
         practicePage.type("небо")

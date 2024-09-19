@@ -16,7 +16,8 @@ interface InputUiState {
             inputLayout.visibility = visibility
             inputLayout.isEnabled = enabled
             inputLayout.isErrorEnabled = error
-            if (clearText) inputEditText.setText("")
+            if (clearText)
+                inputEditText.text?.clear()
         }
     }
     object Initial : Abstract(View.VISIBLE, true, false, true)

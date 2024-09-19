@@ -3,8 +3,8 @@ package ru.timon.englishwords.main
 import android.view.KeyEvent
 import android.widget.FrameLayout
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.ViewAction
 import androidx.test.espresso.ViewInteraction
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.pressKey
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -57,13 +57,17 @@ class InputUi {
         layoutInteraction.check(matches(not(isDisplayed())))
     }
 
-    fun deleteLetter() {
-        inputInteraction.perform(pressKey(KeyEvent.KEYCODE_DEL))
-    }
-
     fun assertInputVisibleDisabledError() {
         layoutInteraction.check(matches(isDisplayed()))
             .check(matches(not(isEnabled())))
             .check(matches(TextInputLayoutErrorEnabledMatcher(true)))
+    }
+
+    fun clearText() {
+        inputInteraction.perform(ViewActions.clearText())
+    }
+
+    fun replace(text: String) {
+        inputInteraction.perform(ViewActions.replaceText(text))
     }
 }
