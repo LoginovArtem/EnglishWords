@@ -3,8 +3,9 @@ package ru.timon.englishwords
 import android.view.View
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import java.io.Serializable
 
-interface InputUiState {
+interface InputUiState  : Serializable {
     fun update(inputLayout: TextInputLayout, inputEditText: TextInputEditText)
     abstract class Abstract(
         private val visibility: Int,
@@ -16,7 +17,8 @@ interface InputUiState {
             inputLayout.visibility = visibility
             inputLayout.isEnabled = enabled
             inputLayout.isErrorEnabled = error
-            if (clearText) inputEditText.setText("")
+            if (clearText)
+                inputEditText.text?.clear()
         }
     }
     object Initial : Abstract(View.VISIBLE, true, false, true)

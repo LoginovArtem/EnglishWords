@@ -21,63 +21,69 @@ class ScenarioTest {
 
     private lateinit var practicePage: PracticePage
 
+    private fun ActivityScenarioRule<*>.doWithRecreate(block: ()->Unit) {
+        block.invoke()
+        scenario.recreate()
+        block.invoke()
+    }
+
     @Test
     fun testCase_1() {
         practicePage = PracticePage(word = "sky", translation = "небо")
-        practicePage.assertInitialState()
+        activityRule.doWithRecreate(practicePage::assertInitialState)
 
         practicePage.type("небо")
-        practicePage.assertCheckableState()
+        activityRule.doWithRecreate(practicePage::assertCheckableState)
 
         practicePage.check()
-        practicePage.assertCorrectState()
+        activityRule.doWithRecreate(practicePage::assertCorrectState)
 
         practicePage.next()
         practicePage = PracticePage(word = "tree", translation = "дерево")
-        practicePage.assertInitialState()
+        activityRule.doWithRecreate(practicePage::assertInitialState)
     }
 
     @Test
     fun testCase_2() {
         practicePage = PracticePage(word = "sky", translation = "небо")
-        practicePage.assertInitialState()
+        activityRule.doWithRecreate(practicePage::assertInitialState)
 
         practicePage.type("н")
-        practicePage.assertCheckableState()
+        activityRule.doWithRecreate(practicePage::assertCheckableState)
 
-        practicePage.deleteLetter()
-        practicePage.assertInitialState()
+        practicePage.clearText()
+        activityRule.doWithRecreate(practicePage::assertInitialState)
 
         practicePage.type("небо")
-        practicePage.assertCheckableState()
+        activityRule.doWithRecreate(practicePage::assertCheckableState)
 
         practicePage.check()
-        practicePage.assertCorrectState()
+        activityRule.doWithRecreate(practicePage::assertCorrectState)
 
         practicePage.next()
         practicePage = PracticePage(word = "tree", translation = "дерево")
-        practicePage.assertInitialState()
+        activityRule.doWithRecreate(practicePage::assertInitialState)
 
         practicePage.type("три")
-        practicePage.assertCheckableState()
+        activityRule.doWithRecreate(practicePage::assertCheckableState)
 
         practicePage.check()
-        practicePage.assertIncorrectState()
+        activityRule.doWithRecreate(practicePage::assertIncorrectState)
 
         practicePage.tryAgain()
-        practicePage.assertInitialState()
+        activityRule.doWithRecreate(practicePage::assertInitialState)
 
         practicePage.type("чтоэто")
-        practicePage.assertCheckableState()
+        activityRule.doWithRecreate(practicePage::assertCheckableState)
 
         practicePage.check()
-        practicePage.assertIncorrectState()
+        activityRule.doWithRecreate(practicePage::assertIncorrectState)
 
         practicePage.show()
-        practicePage.assertFailState()
+        activityRule.doWithRecreate(practicePage::assertFailState)
 
         practicePage.next()
         practicePage = PracticePage(word = "run", translation = "бежать")
-        practicePage.assertInitialState()
+        activityRule.doWithRecreate(practicePage::assertInitialState)
     }
 }
