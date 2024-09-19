@@ -2,8 +2,9 @@ package ru.timon.englishwords
 
 import android.view.View
 import ru.timon.englishwords.databinding.ActivityMainBinding
+import java.io.Serializable
 
-interface PracticeUiState {
+interface PracticeUiState : Serializable{
 
     fun update(binding: ActivityMainBinding)
 
