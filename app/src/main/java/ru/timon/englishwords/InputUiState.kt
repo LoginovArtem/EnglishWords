@@ -3,8 +3,9 @@ package ru.timon.englishwords
 import android.view.View
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import java.io.Serializable
 
-interface InputUiState {
+interface InputUiState  : Serializable {
     fun update(inputLayout: TextInputLayout, inputEditText: TextInputEditText)
     abstract class Abstract(
         private val visibility: Int,
