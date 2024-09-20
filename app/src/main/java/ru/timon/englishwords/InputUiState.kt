@@ -1,6 +1,8 @@
 package ru.timon.englishwords
 
+import android.text.Editable
 import android.view.View
+import android.widget.EditText
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import java.io.Serializable

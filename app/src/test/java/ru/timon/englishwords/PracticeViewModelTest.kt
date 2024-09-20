@@ -102,7 +102,18 @@ class FakeRepository : PracticeRepository {
         if (index == list.size ) {
             index = 0
         }
+        saveUserInput("")
         index++
+    }
+
+    private var input = ""
+
+    override fun saveUserInput(text: String) {
+        input = text
+    }
+
+    override fun readUserInput(): String {
+        return input
     }
 }
 

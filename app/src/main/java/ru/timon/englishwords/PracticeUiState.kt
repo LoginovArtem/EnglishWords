@@ -4,7 +4,7 @@ import android.view.View
 import ru.timon.englishwords.databinding.ActivityMainBinding
 import java.io.Serializable
 
-interface PracticeUiState : Serializable{
+interface PracticeUiState : Serializable {
 
     fun update(binding: ActivityMainBinding)
 
@@ -18,7 +18,7 @@ interface PracticeUiState : Serializable{
         private val nextVisibility: Int,
         private val showVisibility: Int
     ) : PracticeUiState {
-        override fun update(binding: ActivityMainBinding) = with(binding){
+        override fun update(binding: ActivityMainBinding) = with(binding) {
             wordTextView.text = englishWord
             translationTextView.text = translationWord
             translationTextView.visibility = translationVisibility
@@ -30,7 +30,11 @@ interface PracticeUiState : Serializable{
         }
     }
 
-    data class  Initial(private val word: String, val translation: String) : Abstract(
+    data class Initial(
+        private val word: String,
+        val translation: String,
+        private val readUserInput: String = ""
+    ) : Abstract(
         word,
         translation,
         View.INVISIBLE,
@@ -40,6 +44,7 @@ interface PracticeUiState : Serializable{
         View.INVISIBLE,
         View.INVISIBLE
     )
+
     data class Checkable(val word: String, val translation: String) : Abstract(
         word,
         translation,
@@ -50,6 +55,7 @@ interface PracticeUiState : Serializable{
         View.INVISIBLE,
         View.INVISIBLE
     )
+
     data class Correct(val word: String, val translation: String) : Abstract(
         word,
         translation,
@@ -60,6 +66,7 @@ interface PracticeUiState : Serializable{
         View.VISIBLE,
         View.INVISIBLE
     )
+
     data class Incorrect(val word: String, val translation: String) : Abstract(
         word,
         translation,
@@ -70,6 +77,7 @@ interface PracticeUiState : Serializable{
         View.INVISIBLE,
         View.VISIBLE
     )
+
     data class Fail(val word: String, val translation: String) : Abstract(
         word,
         translation,
