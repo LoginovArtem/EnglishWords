@@ -22,11 +22,11 @@ class PracticeViewModelTest {
         assertEquals(expected, actual)
 
         actual = viewModel.handleUserInput(text = "небо")
-        expected = PracticeUiState.Checkable(word = "sky", translation = "небо")
+        expected = PracticeUiState.Checkable
         assertEquals(expected, actual)
 
         actual = viewModel.check(text = "небо")
-        expected = PracticeUiState.Correct(word = "sky", translation = "небо")
+        expected = PracticeUiState.Correct
         assertEquals(expected, actual)
 
         actual = viewModel.next()
@@ -42,19 +42,19 @@ class PracticeViewModelTest {
         assertEquals(expected, actual)
 
         actual = viewModel.handleUserInput(text = "н")
-        expected = PracticeUiState.Checkable(word = "sky", translation = "небо")
+        expected = PracticeUiState.Checkable
         assertEquals(expected, actual)
 
         actual = viewModel.handleUserInput(text = "")
-        expected = PracticeUiState.Initial(word = "sky", translation = "небо")
+        expected = PracticeUiState.NoText
         assertEquals(expected, actual)
 
         actual = viewModel.handleUserInput(text = "небо")
-        expected = PracticeUiState.Checkable(word = "sky", translation = "небо")
+        expected = PracticeUiState.Checkable
         assertEquals(expected, actual)
 
         actual = viewModel.check(text = "небо")
-        expected = PracticeUiState.Correct(word = "sky", translation = "небо")
+        expected = PracticeUiState.Correct
         assertEquals(expected, actual)
 
         actual = viewModel.next()
@@ -62,27 +62,27 @@ class PracticeViewModelTest {
         assertEquals(expected, actual)
 
         actual = viewModel.handleUserInput("три")
-        expected = PracticeUiState.Checkable(word = "tree", translation = "дерево")
+        expected = PracticeUiState.Checkable
         assertEquals(expected, actual)
 
         actual = viewModel.check(text = "три")
-        expected = PracticeUiState.Incorrect(word = "tree", translation = "дерево")
+        expected = PracticeUiState.Incorrect
         assertEquals(expected, actual)
 
         actual = viewModel.tryAgain()
-        expected = PracticeUiState.Initial(word = "tree", translation = "дерево")
+        expected = PracticeUiState.NoText
         assertEquals(expected, actual)
 
         actual = viewModel.handleUserInput("три")
-        expected = PracticeUiState.Checkable(word = "tree", translation = "дерево")
+        expected = PracticeUiState.Checkable
         assertEquals(expected, actual)
 
         actual = viewModel.check(text = "три")
-        expected = PracticeUiState.Incorrect(word = "tree", translation = "дерево")
+        expected = PracticeUiState.Incorrect
         assertEquals(expected, actual)
 
         actual = viewModel.show()
-        expected = PracticeUiState.Fail(word = "tree", translation = "дерево")
+        expected = PracticeUiState.Fail
         assertEquals(expected, actual)
 
         actual = viewModel.next()

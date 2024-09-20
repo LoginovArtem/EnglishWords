@@ -1,92 +1,140 @@
 package ru.timon.englishwords
 
-import android.view.View
-import ru.timon.englishwords.databinding.ActivityMainBinding
-import java.io.Serializable
+import ru.timon.englishwords.views.UpdateText
+import ru.timon.englishwords.views.translation.UpdateTranslation
+import ru.timon.englishwords.views.check.CheckUiState
+import ru.timon.englishwords.views.check.UpdateCheckButton
+import ru.timon.englishwords.views.input.InputUiState
+import ru.timon.englishwords.views.input.UpdateInput
+import ru.timon.englishwords.views.translation.TranslationUiState
+import ru.timon.englishwords.views.visibilityButton.UpdateVisibility
+import ru.timon.englishwords.views.visibilityButton.VisibilityUiState
 
-interface PracticeUiState : Serializable {
+interface PracticeUiState {
 
-    fun update(binding: ActivityMainBinding)
+    fun update(
+        wordView: UpdateText,
+        translationView: UpdateTranslation,
+        inputView: UpdateInput,
+        check: UpdateCheckButton,
+        tryVisibility: UpdateVisibility,
+        nextVisibility: UpdateVisibility,
+        showVisibility: UpdateVisibility
+    )
+
+    object Empty : PracticeUiState {
+        override fun update(
+            wordView: UpdateText,
+            translationView: UpdateTranslation,
+            inputView: UpdateInput,
+            check: UpdateCheckButton,
+            tryVisibility: UpdateVisibility,
+            nextVisibility: UpdateVisibility,
+            showVisibility: UpdateVisibility
+        ) = Unit
+    }
 
     abstract class Abstract(
-        private val englishWord: String,
-        private val translationWord: String,
-        private val translationVisibility: Int,
         private val inputUiState: InputUiState,
-        private val tryVisibility: Int,
         private val checkUiState: CheckUiState,
-        private val nextVisibility: Int,
-        private val showVisibility: Int
+        private val tryVisibilityUiState: VisibilityUiState,
+        private val nextVisibilityUiState: VisibilityUiState,
+        private val showVisibilityUiState: VisibilityUiState
     ) : PracticeUiState {
-        override fun update(binding: ActivityMainBinding) = with(binding) {
-            wordTextView.text = englishWord
-            translationTextView.text = translationWord
-            translationTextView.visibility = translationVisibility
-            inputUiState.update(inputLayout, inputEditText)
-            tryAgainButton.visibility = tryVisibility
-            checkUiState.update(checkButton)
-            nextButton.visibility = nextVisibility
-            showButton.visibility = showVisibility
+        override fun update(
+            wordView: UpdateText,
+            translationView: UpdateTranslation,
+            inputView: UpdateInput,
+            check: UpdateCheckButton,
+            tryVisibility: UpdateVisibility,
+            nextVisibility: UpdateVisibility,
+            showVisibility: UpdateVisibility
+        ) {
+            inputView.update(inputUiState)
+            check.update(checkUiState)
+            tryVisibility.update(tryVisibilityUiState)
+            nextVisibility.update(nextVisibilityUiState)
+            showVisibility.update(showVisibilityUiState)
         }
     }
 
     data class Initial(
         private val word: String,
-        val translation: String,
-        private val readUserInput: String = ""
+        private val translation: String
     ) : Abstract(
-        word,
-        translation,
-        View.INVISIBLE,
         InputUiState.Initial,
-        View.INVISIBLE,
-        CheckUiState.Initial,
-        View.INVISIBLE,
-        View.INVISIBLE
+        CheckUiState.Disabled,
+        VisibilityUiState.Invisible,
+        VisibilityUiState.Invisible,
+        VisibilityUiState.Invisible
+    ) {
+        override fun update(
+            wordView: UpdateText,
+            translationView: UpdateTranslation,
+            inputView: UpdateInput,
+            check: UpdateCheckButton,
+            tryVisibility: UpdateVisibility,
+            nextVisibility: UpdateVisibility,
+            showVisibility: UpdateVisibility
+        ) {
+            super.update(wordView, translationView, inputView, check, tryVisibility, nextVisibility, showVisibility)
+            wordView.update(word)
+            translationView.update(translation)
+            translationView.update(TranslationUiState.Invisible)
+        }
+    }
+
+    object NoText : Abstract(
+        InputUiState.Initial,
+        CheckUiState.Disabled,
+        VisibilityUiState.Invisible,
+        VisibilityUiState.Invisible,
+        VisibilityUiState.Invisible
     )
 
-    data class Checkable(val word: String, val translation: String) : Abstract(
-        word,
-        translation,
-        View.INVISIBLE,
+    object Checkable : Abstract(
         InputUiState.Enabled,
-        View.INVISIBLE,
         CheckUiState.Checkable,
-        View.INVISIBLE,
-        View.INVISIBLE
+        VisibilityUiState.Invisible,
+        VisibilityUiState.Invisible,
+        VisibilityUiState.Invisible
     )
 
-    data class Correct(val word: String, val translation: String) : Abstract(
-        word,
-        translation,
-        View.INVISIBLE,
+    object Correct : Abstract(
         InputUiState.Disabled,
-        View.INVISIBLE,
         CheckUiState.Invisible,
-        View.VISIBLE,
-        View.INVISIBLE
+        VisibilityUiState.Invisible,
+        VisibilityUiState.Visible,
+        VisibilityUiState.Invisible
     )
 
-    data class Incorrect(val word: String, val translation: String) : Abstract(
-        word,
-        translation,
-        View.INVISIBLE,
+    object Incorrect : Abstract(
         InputUiState.DisabledError,
-        View.VISIBLE,
         CheckUiState.Invisible,
-        View.INVISIBLE,
-        View.VISIBLE
+        VisibilityUiState.Visible,
+        VisibilityUiState.Invisible,
+        VisibilityUiState.Visible
     )
 
-    data class Fail(val word: String, val translation: String) : Abstract(
-        word,
-        translation,
-        View.VISIBLE,
+    object Fail : Abstract(
         InputUiState.Invisible,
-        View.INVISIBLE,
         CheckUiState.Invisible,
-        View.VISIBLE,
-        View.INVISIBLE
-    )
+        VisibilityUiState.Invisible,
+        VisibilityUiState.Visible,
+        VisibilityUiState.Invisible
+    ) {
+        override fun update(
+            wordView: UpdateText,
+            translationView: UpdateTranslation,
+            inputView: UpdateInput,
+            check: UpdateCheckButton,
+            tryVisibility: UpdateVisibility,
+            nextVisibility: UpdateVisibility,
+            showVisibility: UpdateVisibility
+        ) {
+            super.update(wordView, translationView, inputView, check, tryVisibility, nextVisibility, showVisibility)
+            translationView.update(TranslationUiState.Visible)
+        }
+    }
 }
 
