@@ -99,21 +99,11 @@ class FakeRepository : PracticeRepository {
     override fun translation(): String = list[index].second
 
     override fun next() {
+        index++
         if (index == list.size ) {
             index = 0
         }
-        saveUserInput("")
-        index++
     }
 
-    private var input = ""
-
-    override fun saveUserInput(text: String) {
-        input = text
-    }
-
-    override fun readUserInput(): String {
-        return input
-    }
 }
 
