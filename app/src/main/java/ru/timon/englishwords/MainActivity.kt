@@ -1,12 +1,10 @@
 package ru.timon.englishwords
 
-import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.addTextChangedListener
 import ru.timon.englishwords.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -18,8 +16,20 @@ class MainActivity : AppCompatActivity() {
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int)  = Unit
         override fun afterTextChanged(p0: Editable?) {
             uiState = viewModel.handleUserInput(text = p0.toString())
-            uiState.update(binding = binding)
+            update.invoke()
         }
+    }
+
+    private val update: ()->Unit = {
+        uiState.update(
+            binding.wordTextView,
+            binding.translationTextView,
+            binding.inputView,
+            binding.checkButton,
+            binding.tryAgainButton,
+            binding.nextButton,
+            binding.showButton
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,49 +41,38 @@ class MainActivity : AppCompatActivity() {
         viewModel = (application as App).viewModel
 
         binding.checkButton.setOnClickListener {
-            uiState = viewModel.check(text = binding.inputEditText.text.toString())
-            uiState.update(binding = binding)
+            uiState = viewModel.check(text = binding.inputView.text())
+            update.invoke()
         }
 
         binding.showButton.setOnClickListener {
             uiState = viewModel.show()
-            uiState.update(binding = binding)
+            update.invoke()
         }
 
         binding.nextButton.setOnClickListener {
              uiState = viewModel.next()
-            uiState.update(binding = binding)
+            update.invoke()
         }
 
         binding.tryAgainButton.setOnClickListener {
             uiState = viewModel.tryAgain()
-            uiState.update(binding = binding)
+            update.invoke()
         }
 
-        uiState = if (savedInstanceState == null) viewModel.init()
-        else
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-                savedInstanceState.getSerializable(KEY, PracticeUiState::class.java) as PracticeUiState
-            else savedInstanceState.getSerializable(KEY) as PracticeUiState
-        uiState.update(binding = binding)
-    }
+        uiState = viewModel.init(savedInstanceState==null)
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putSerializable(KEY, uiState)
+        update.invoke()
     }
 
     override fun onResume() {
         super.onResume()
-        binding.inputEditText.addTextChangedListener(textWatcher)
+        binding.inputView.addTextChangedListener(textWatcher)
     }
 
     override fun onPause() {
         super.onPause()
-        binding.inputEditText.removeTextChangedListener(textWatcher)
+        binding.inputView.removeTextChangedListener(textWatcher)
     }
 
-    companion object {
-        private const val KEY = "outStateKey"
-    }
 }

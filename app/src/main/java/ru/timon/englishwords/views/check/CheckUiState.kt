@@ -1,22 +1,21 @@
-package ru.timon.englishwords
+package ru.timon.englishwords.views.check
 
 import android.view.View
-import androidx.appcompat.widget.AppCompatButton
 import java.io.Serializable
 
 interface CheckUiState : Serializable {
 
-    fun update(checkButton: AppCompatButton)
+    fun update(updateCheckButton: UpdateCheckButton)
+
     abstract class Abstract(
         private val visibility: Int,
         private val enabled: Boolean
         ) : CheckUiState {
-        override fun update(checkButton: AppCompatButton) {
-            checkButton.visibility = visibility
-            checkButton.isEnabled = enabled
+        override fun update(updateCheckButton: UpdateCheckButton) {
+            updateCheckButton.update(visibility, enabled)
         }
     }
-    object Initial : Abstract(View.VISIBLE, false)
+    object Disabled : Abstract(View.VISIBLE, false)
     object Checkable : Abstract(View.VISIBLE, true)
     object Invisible : Abstract(View.INVISIBLE, false)
 }

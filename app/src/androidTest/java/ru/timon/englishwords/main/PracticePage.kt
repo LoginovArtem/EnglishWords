@@ -131,4 +131,14 @@ class PracticePage(word: String, translation: String) {
         nextUi.notVisible()
         tryAgainUi.notVisible()
     }
+
+    fun assertNoTextState() {
+        wordUi.assertTextVisible()
+        translationUi.assertTextNotVisible()
+        inputUi.assertInputVisibleEnabled()
+        checkUi.isVisibleDisabled()
+        showUi.notVisible()
+        nextUi.notVisible()
+        tryAgainUi.notVisible()
+    }
 }

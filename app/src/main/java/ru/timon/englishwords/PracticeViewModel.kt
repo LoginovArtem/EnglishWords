@@ -2,17 +2,14 @@ package ru.timon.englishwords
 
 class PracticeViewModel(private val repository: PracticeRepository) {
     fun check(text: String): PracticeUiState {
-        val word = repository.word()
         val translation = repository.translation()
         val isCorrect = translation.equals(text, true)
-        return if (isCorrect) PracticeUiState.Correct(word, translation)
-        else PracticeUiState.Incorrect(word, translation)
+        return if (isCorrect) PracticeUiState.Correct
+        else PracticeUiState.Incorrect
     }
 
     fun show(): PracticeUiState {
-        val word = repository.word()
-        val translation = repository.translation()
-        return PracticeUiState.Fail(word, translation)
+        return PracticeUiState.Fail
     }
 
     fun next(): PracticeUiState {
@@ -21,21 +18,23 @@ class PracticeViewModel(private val repository: PracticeRepository) {
     }
 
     fun tryAgain(): PracticeUiState {
-        return init()
+        return PracticeUiState.NoText
     }
 
     fun handleUserInput(text: String): PracticeUiState {
-        val word = repository.word()
-        val translation = repository.translation()
         val isCheckable = text.isNotEmpty()
-        return if (isCheckable) PracticeUiState.Checkable(word, translation)
-        else PracticeUiState.Initial(word, translation)
+        return if (isCheckable) PracticeUiState.Checkable
+        else PracticeUiState.NoText
     }
 
-    fun init(): PracticeUiState {
-        val word = repository.word()
-        val translation = repository.translation()
-        return  PracticeUiState.Initial(word, translation)
+    fun init(isFirstRun: Boolean = true): PracticeUiState {
+        if (isFirstRun) {
+            val word = repository.word()
+            val translation = repository.translation()
+            return PracticeUiState.Initial(word, translation)
+        } else {
+            return PracticeUiState.Empty
+        }
     }
 
 }

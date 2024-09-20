@@ -2,7 +2,6 @@ package ru.timon.englishwords
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -50,7 +49,7 @@ class ScenarioTest {
         activityRule.doWithRecreate(practicePage::assertCheckableState)
 
         practicePage.clearText()
-        activityRule.doWithRecreate(practicePage::assertInitialState)
+        activityRule.doWithRecreate(practicePage::assertNoTextState)
 
         practicePage.type("небо")
         activityRule.doWithRecreate(practicePage::assertCheckableState)
@@ -69,7 +68,7 @@ class ScenarioTest {
         activityRule.doWithRecreate(practicePage::assertIncorrectState)
 
         practicePage.tryAgain()
-        activityRule.doWithRecreate(practicePage::assertInitialState)
+        activityRule.doWithRecreate(practicePage::assertNoTextState)
 
         practicePage.type("чтоэто")
         activityRule.doWithRecreate(practicePage::assertCheckableState)

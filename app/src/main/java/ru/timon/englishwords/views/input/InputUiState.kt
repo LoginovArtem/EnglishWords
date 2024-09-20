@@ -1,26 +1,19 @@
-package ru.timon.englishwords
+package ru.timon.englishwords.views.input
 
-import android.text.Editable
 import android.view.View
-import android.widget.EditText
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import java.io.Serializable
 
 interface InputUiState  : Serializable {
-    fun update(inputLayout: TextInputLayout, inputEditText: TextInputEditText)
+    fun update(updateInput: UpdateInput)
+
     abstract class Abstract(
         private val visibility: Int,
         private val enabled: Boolean,
         private val error: Boolean,
         private val clearText: Boolean
     ) : InputUiState {
-        override fun update(inputLayout: TextInputLayout, inputEditText: TextInputEditText) {
-            inputLayout.visibility = visibility
-            inputLayout.isEnabled = enabled
-            inputLayout.isErrorEnabled = error
-            if (clearText)
-                inputEditText.text?.clear()
+        override fun update(updateInput: UpdateInput) {
+            updateInput.update(visibility, error, enabled, clearText)
         }
     }
     object Initial : Abstract(View.VISIBLE, true, false, true)
